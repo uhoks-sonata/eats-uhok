@@ -2,7 +2,6 @@
 
 ## 파일 구조
 - `docker-compose.web.yml`: 웹 서비스 (nginx, backend, frontend, redis)
-- `docker-compose.ml.yml`: ML 추론 서비스 (ml-inference)
 
 ## 기본 명령어 (순서대로)
 
@@ -27,40 +26,10 @@ docker compose -f docker-compose.web.yml up -d
 docker compose -f docker-compose.web.yml up
 ```
 
-### 2. ML 서비스 빌드 및 실행
-```bash
-# ML 서비스 이미지 빌드
-docker compose -f docker-compose.ml.yml build
-
-# ML 서비스 시작 (백그라운드)
-docker compose -f docker-compose.ml.yml up -d
-
-# ML 서비스 시작 (포그라운드)
-docker compose -f docker-compose.ml.yml up
-```
-
-### 3. 통합 실행 (웹 + ML)
-```bash
-# 모든 서비스 빌드 및 시작
-docker compose -f docker-compose.web.yml -f docker-compose.ml.yml up -d --build
-
-# 모든 서비스 중지
-docker compose -f docker-compose.web.yml -f docker-compose.ml.yml down
-
-# 모든 서비스 중지 (볼륨도 함께 삭제)
-docker compose -f docker-compose.web.yml -f docker-compose.ml.yml down -v
-```
-
-### 4. 서비스 상태 확인
+### 2. 서비스 상태 확인
 ```bash
 # 웹 서비스 상태 확인
 docker compose -f docker-compose.web.yml ps
-
-# ML 서비스 상태 확인
-docker compose -f docker-compose.ml.yml ps
-
-# 모든 서비스 상태 확인 (통합)
-docker compose -f docker-compose.web.yml -f docker-compose.ml.yml ps
 
 # 웹 서비스 로그 확인
 docker compose -f docker-compose.web.yml logs
@@ -72,7 +41,7 @@ docker compose -f docker-compose.web.yml logs backend
 docker compose -f docker-compose.web.yml logs -f backend
 ```
 
-### 5. 서비스 재시작
+### 3. 서비스 재시작
 ```bash
 # 웹 서비스 재시작
 docker compose -f docker-compose.web.yml restart
@@ -83,14 +52,11 @@ docker compose -f docker-compose.web.yml restart backend
 # 서비스 중지 후 다시 시작
 docker compose -f docker-compose.web.yml stop backend
 docker compose -f docker-compose.web.yml start backend
-
-# ML 서비스 재시작
-docker compose -f docker-compose.ml.yml restart
 ```
 
 ## 컨테이너 관리
 
-### 6. 컨테이너 접속
+### 4. 컨테이너 접속
 ```bash
 # 웹 서비스 컨테이너 내부 접속
 docker compose -f docker-compose.web.yml exec backend bash
@@ -98,53 +64,33 @@ docker compose -f docker-compose.web.yml exec frontend sh
 docker compose -f docker-compose.web.yml exec nginx sh
 docker compose -f docker-compose.web.yml exec redis redis-cli
 
-# ML 서비스 컨테이너 내부 접속
-docker compose -f docker-compose.ml.yml exec ml_inference bash
-
 # 컨테이너 내부에서 명령어 실행
 docker compose -f docker-compose.web.yml exec backend python -c "print('Hello')"
-docker compose -f docker-compose.ml.yml exec ml_inference python -c "import torch; print(torch.__version__)"
 ```
 
-### 6. 컨테이너 정보 확인
+### 5. 컨테이너 정보 확인
 ```bash
 # 웹 서비스 설정 확인
 docker compose -f docker-compose.web.yml config
 
-# ML 서비스 설정 확인
-docker compose -f docker-compose.ml.yml config
-
 # 특정 서비스 설정 확인
 docker compose -f docker-compose.web.yml config backend
-docker compose -f docker-compose.ml.yml config ml_inference
-
-# 모든 서비스 설정 확인 (통합)
-docker compose -f docker-compose.web.yml -f docker-compose.ml.yml config
 ```
 
 ## 프로젝트별 명령어 (uhok 프로젝트)
 
-### 7. 개발 환경 실행 (순서대로)
+### 6. 개발 환경 실행 (순서대로)
 ```bash
 # 1단계: 웹 서비스 이미지 빌드
 docker compose -f docker-compose.web.yml build
 
-# 2단계: ML 서비스 이미지 빌드
-docker compose -f docker-compose.ml.yml build
-
-# 3단계: 웹 서비스 시작 (백엔드 + 프론트엔드 + nginx + redis)
+# 2단계: 웹 서비스 시작 (백엔드 + 프론트엔드 + nginx + redis)
 docker compose -f docker-compose.web.yml up -d
-
-# 4단계: ML 서비스 시작
-docker compose -f docker-compose.ml.yml up -d
-
-# 또는 모든 서비스 한번에 시작
-docker compose -f docker-compose.web.yml -f docker-compose.ml.yml up -d
 
 # 접속 URL: http://localhost:80 (또는 http://localhost)
 ```
 
-### 8. 개별 서비스 관리
+### 7. 개별 서비스 관리
 ```bash
 # 웹 서비스 개별 관리
 docker compose -f docker-compose.web.yml build backend
@@ -158,13 +104,9 @@ docker compose -f docker-compose.web.yml up -d nginx
 
 # redis 시작 (이미지 빌드 불필요)
 docker compose -f docker-compose.web.yml up -d redis
-
-# ML 서비스 개별 관리
-docker compose -f docker-compose.ml.yml build
-docker compose -f docker-compose.ml.yml up -d
 ```
 
-### 9. 로그 모니터링
+### 8. 로그 모니터링
 ```bash
 # 웹 서비스 로그 확인
 docker compose -f docker-compose.web.yml logs
@@ -179,12 +121,6 @@ docker compose -f docker-compose.web.yml logs redis
 docker compose -f docker-compose.web.yml logs -f backend
 docker compose -f docker-compose.web.yml logs -f frontend
 
-# ML 서비스 로그 확인
-docker compose -f docker-compose.ml.yml logs -f
-
-# 모든 서비스 로그 확인 (통합)
-docker compose -f docker-compose.web.yml -f docker-compose.ml.yml logs -f
-
 # 특정 시간 이후 로그
 docker compose -f docker-compose.web.yml logs --since="2025-09-08T06:00:00" backend
 
@@ -192,23 +128,16 @@ docker compose -f docker-compose.web.yml logs --since="2025-09-08T06:00:00" back
 docker compose -f docker-compose.web.yml logs --tail=50 backend
 ```
 
-### 10. 문제 해결
+### 9. 문제 해결
 ```bash
 # 웹 서비스 상태 확인
 docker compose -f docker-compose.web.yml ps
-
-# ML 서비스 상태 확인
-docker compose -f docker-compose.ml.yml ps
-
-# 모든 서비스 상태 확인 (통합)
-docker compose -f docker-compose.web.yml -f docker-compose.ml.yml ps
 
 # 컨테이너 리소스 사용량 확인
 docker stats
 
 # 특정 컨테이너 상세 정보
 docker inspect uhok-deploy-backend-1
-docker inspect uhok-deploy-ml_inference-1
 
 # 네트워크 확인
 docker network ls
@@ -217,7 +146,7 @@ docker network inspect uhok-deploy_app_net
 
 ## 유용한 옵션들
 
-### 11. 추가 옵션
+### 10. 추가 옵션
 ```bash
 # 웹 서비스 강제 재생성
 docker compose -f docker-compose.web.yml up -d --force-recreate
@@ -225,14 +154,8 @@ docker compose -f docker-compose.web.yml up -d --force-recreate
 # 특정 서비스만 강제 재생성
 docker compose -f docker-compose.web.yml up -d --force-recreate backend
 
-# ML 서비스 강제 재생성
-docker compose -f docker-compose.ml.yml up -d --force-recreate
-
-# 모든 서비스 강제 재생성
-docker compose -f docker-compose.web.yml -f docker-compose.ml.yml up -d --force-recreate
-
 # 볼륨과 함께 완전 정리
-docker compose -f docker-compose.web.yml -f docker-compose.ml.yml down -v --remove-orphans
+docker compose -f docker-compose.web.yml down -v --remove-orphans
 
 # 사용하지 않는 이미지 정리
 docker image prune
@@ -243,22 +166,18 @@ docker system prune
 
 ## 환경 변수 관리
 
-### 12. 환경 설정
+### 11. 환경 설정
 ```bash
 # 웹 서비스 환경 변수 파일 지정
 docker compose -f docker-compose.web.yml --env-file .env up -d
 
-# ML 서비스 환경 변수 파일 지정
-docker compose -f docker-compose.ml.yml --env-file .env up -d
-
 # 특정 환경 변수 오버라이드
 docker compose -f docker-compose.web.yml up -d -e DEBUG=1
-docker compose -f docker-compose.ml.yml up -d -e DEBUG=1
 ```
 
 ## 백업 및 복원
 
-### 13. 데이터 백업
+### 12. 데이터 백업
 ```bash
 # 볼륨 백업
 docker run --rm -v uhok-deploy_data:/data -v $(pwd):/backup alpine tar czf /backup/backup.tar.gz -C /data .
@@ -269,16 +188,13 @@ docker run --rm -v uhok-deploy_data:/data -v $(pwd):/backup alpine tar xzf /back
 
 ## 트러블슈팅
 
-### 14. 일반적인 문제 해결
+### 13. 일반적인 문제 해결
 ```bash
 # 포트 충돌 확인
 netstat -tulpn | grep :80
 
 # 웹 서비스 로그에서 에러 확인
 docker compose -f docker-compose.web.yml logs | grep -i error
-
-# ML 서비스 로그에서 에러 확인
-docker compose -f docker-compose.ml.yml logs | grep -i error
 
 # 컨테이너 리소스 사용량 확인
 docker stats --no-stream
@@ -289,11 +205,9 @@ docker compose -f docker-compose.web.yml exec nginx ping backend
 # Redis 연결 테스트
 docker compose -f docker-compose.web.yml exec redis redis-cli ping
 
-# ML Inference 서비스 연결 테스트
-docker compose -f docker-compose.ml.yml exec ml_inference curl -f http://localhost:8001/health
 ```
 
-### 15. 자주 발생하는 오류와 해결방법
+### 14. 자주 발생하는 오류와 해결방법
 
 #### 이미지 참조 오류
 ```bash
@@ -421,62 +335,11 @@ docker compose -f docker-compose.web.yml restart redis nginx
 docker compose -f docker-compose.web.yml ps redis nginx
 ```
 
-### 19. ML Inference 관리
+### 19. 웹 서비스 실행 옵션
 ```bash
-# ML Inference 서비스 시작
-docker compose -f docker-compose.ml.yml up -d
-
-# ML Inference 서비스 중지
-docker compose -f docker-compose.ml.yml stop
-
-# ML Inference 서비스 재시작
-docker compose -f docker-compose.ml.yml restart
-
-# ML Inference 빌드 후 시작
-docker compose -f docker-compose.ml.yml up -d --build
-
-# ML Inference 상태 확인
-docker compose -f docker-compose.ml.yml exec ml_inference curl -f http://localhost:8001/health
-
-# ML Inference 로그 확인
-docker compose -f docker-compose.ml.yml logs -f
-
-# ML Inference 컨테이너 접속
-docker compose -f docker-compose.ml.yml exec ml_inference bash
-
-# ML 모델 캐시 볼륨 확인
-docker volume ls | grep ml_cache
-
-# ML 모델 캐시 볼륨 삭제 (주의: 모델 재다운로드 필요)
-docker volume rm uhok-deploy_ml_cache
-```
-
-### 20. 통합 실행 옵션
-```bash
-# 웹 서비스만 시작 (backend, frontend, nginx, redis)
+# 웹 서비스 시작 (backend, frontend, nginx, redis)
 docker compose -f docker-compose.web.yml up -d
 
-# ML 서비스만 시작
-docker compose -f docker-compose.ml.yml up -d
-
-# 모든 서비스 시작 (웹 + ML)
-docker compose -f docker-compose.web.yml -f docker-compose.ml.yml up -d
-
-# 모든 서비스 빌드 및 시작
-docker compose -f docker-compose.web.yml -f docker-compose.ml.yml up -d --build
-```
-
-### 21. ML Inference와 다른 서비스 함께 관리
-```bash
-# ML Inference와 웹 서비스 동시 시작
-docker compose -f docker-compose.web.yml -f docker-compose.ml.yml up -d
-
-# ML Inference와 특정 웹 서비스만 시작
-docker compose -f docker-compose.web.yml -f docker-compose.ml.yml up -d ml_inference redis nginx
-
-# ML Inference와 백엔드만 시작
-docker compose -f docker-compose.web.yml -f docker-compose.ml.yml up -d ml_inference backend
-
-# ML Inference 상태 확인
-docker compose -f docker-compose.ml.yml ps ml_inference
+# 웹 서비스 빌드 및 시작
+docker compose -f docker-compose.web.yml up -d --build
 ```

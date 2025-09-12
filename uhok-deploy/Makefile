@@ -5,10 +5,9 @@ CURL    ?= curl -s
 
 # 서비스 정의
 WEB_SERVICES = nginx backend frontend redis
-ML_SERVICES = ml-inference
-ALL_SERVICES = $(WEB_SERVICES) $(ML_SERVICES)
+ALL_SERVICES = $(WEB_SERVICES)
 
-.PHONY: up up-backend up-frontend up-nginx up-ml up-all start stop down down-v restart-backend restart-frontend restart-nginx restart-ml restart-redis logs logs-ml logs-all health status nginx-reload prune-light prune-hard migrate shell-backend shell-ml clean help
+.PHONY: up up-backend up-frontend up-nginx start stop down down-v restart-backend restart-frontend restart-nginx restart-redis logs health status nginx-reload prune-light prune-hard migrate shell-backend clean help
 
 up:
 	# """
@@ -44,21 +43,6 @@ up-nginx:
 	-$(CURL) -I http://localhost/ | head -n 1 || true
 	-$(CURL) -I http://localhost/api/docs | head -n 1 || true
 
-up-ml:
-	# """
-	# ML 추론 서비스만 새로 빌드 후 기동합니다.
-	# """
-	$(COMPOSE) -f docker-compose.ml.yml up -d --build ml-inference
-	$(COMPOSE) -f docker-compose.ml.yml ps
-	-$(CURL) http://localhost:8001/health || true
-
-up-all:
-	# """
-	# 모든 서비스(웹 + ML)를 빌드하고 기동합니다.
-	# """
-	$(MAKE) up
-	$(MAKE) up-ml
-	$(MAKE) health
 
 start:
 	# """
@@ -72,23 +56,19 @@ stop:
 	# 모든 서비스를 일시 중지합니다(이미지/볼륨 유지).
 	# """
 	$(COMPOSE) -f docker-compose.web.yml stop
-	$(COMPOSE) -f docker-compose.ml.yml stop
 	$(COMPOSE) -f docker-compose.web.yml ps
-	$(COMPOSE) -f docker-compose.ml.yml ps
 
 down:
 	# """
 	# 컨테이너와 네트워크를 제거하며 종료합니다(이미지/볼륨 보존).
 	# """
 	$(COMPOSE) -f docker-compose.web.yml down
-	$(COMPOSE) -f docker-compose.ml.yml down
 
 down-v:
 	# """
 	# 컨테이너/네트워크/볼륨까지 제거합니다(데이터 삭제 주의).
 	# """
 	$(COMPOSE) -f docker-compose.web.yml down -v
-	$(COMPOSE) -f docker-compose.ml.yml down -v
 
 restart-backend:
 	# """
@@ -112,12 +92,6 @@ restart-nginx:
 	-$(CURL) -I http://localhost/ | head -n 1 || true
 	-$(CURL) -I http://localhost/api/docs | head -n 1 || true
 
-restart-ml:
-	# """
-	# ML 서비스만 재빌드/재기동 후 헬스 확인합니다.
-	# """
-	$(COMPOSE) -f docker-compose.ml.yml up -d --build ml-inference
-	-$(CURL) http://localhost:8001/health || true
 
 restart-redis:
 	# """
@@ -137,23 +111,6 @@ logs:
 	 $(COMPOSE) -f docker-compose.web.yml logs -f --tail=200 redis & \
 	 wait)
 
-logs-ml:
-	# """
-	# ML 서비스 로그를 실시간 팔로우합니다. 종료: Ctrl+C
-	# """
-	$(COMPOSE) -f docker-compose.ml.yml logs -f --tail=200 ml-inference
-
-logs-all:
-	# """
-	# 모든 서비스(웹 + ML) 로그를 동시에 실시간 팔로우합니다. 종료: Ctrl+C
-	# """
-	trap "exit 0" INT; \
-	($(COMPOSE) -f docker-compose.web.yml logs -f --tail=200 backend & \
-	 $(COMPOSE) -f docker-compose.web.yml logs -f --tail=200 frontend & \
-	 $(COMPOSE) -f docker-compose.web.yml logs -f --tail=200 nginx & \
-	 $(COMPOSE) -f docker-compose.web.yml logs -f --tail=200 redis & \
-	 $(COMPOSE) -f docker-compose.ml.yml logs -f --tail=200 ml-inference & \
-	 wait)
 
 health:
 	# """
@@ -162,14 +119,12 @@ health:
 	-$(CURL) http://localhost/api/health || true
 	-$(CURL) -I http://localhost/api/docs | head -n 1 || true
 	-$(CURL) -I http://localhost/ | head -n 1 || true
-	-$(CURL) http://localhost:8001/health || true
 
 status:
 	# """
 	# 현재 Compose 서비스들의 상태를 표시합니다.
 	# """
 	$(COMPOSE) -f docker-compose.web.yml ps
-	$(COMPOSE) -f docker-compose.ml.yml ps
 
 nginx-reload:
 	# """
@@ -205,11 +160,6 @@ shell-backend:
 	# """
 	$(COMPOSE) -f docker-compose.web.yml exec backend bash
 
-shell-ml:
-	# """
-	# ML 서비스 컨테이너에 bash 셸로 접속합니다.
-	# """
-	$(COMPOSE) -f docker-compose.ml.yml exec ml-inference bash
 
 clean:
 	# """
@@ -227,8 +177,6 @@ help:
 	@echo ""
 	@echo "기본 명령어:"
 	@echo "  make up          - 웹 서비스 시작 (backend, frontend, nginx, redis)"
-	@echo "  make up-ml       - ML 서비스 시작"
-	@echo "  make up-all      - 모든 서비스 시작"
 	@echo "  make start       - 정지된 서비스 재시작"
 	@echo "  make stop        - 모든 서비스 일시 중지"
 	@echo "  make down        - 컨테이너와 네트워크 제거"
@@ -242,8 +190,6 @@ help:
 	@echo ""
 	@echo "로그 및 상태:"
 	@echo "  make logs          - 웹 서비스 로그 보기"
-	@echo "  make logs-ml       - ML 서비스 로그 보기"
-	@echo "  make logs-all      - 모든 서비스 로그 보기"
 	@echo "  make health        - 서비스 헬스 체크"
 	@echo "  make status        - 서비스 상태 확인"
 	@echo ""
@@ -251,7 +197,6 @@ help:
 	@echo "  make migrate       - 데이터베이스 마이그레이션"
 	@echo "  make nginx-reload  - nginx 설정 재로드"
 	@echo "  make shell-backend - 백엔드 컨테이너 접속"
-	@echo "  make shell-ml      - ML 컨테이너 접속"
 	@echo "  make clean         - 모든 리소스 정리"
 	@echo "  make prune-light   - 가벼운 정리"
 	@echo "  make prune-hard    - 강력한 정리"

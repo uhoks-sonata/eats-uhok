@@ -9,7 +9,6 @@ UHOK는 레시피 추천 플랫폼으로, 사용자가 보유한 재료를 기�
 ## 📁 파일 구조
 
 - `docker-compose.web.yml` - 웹 서비스 (백엔드, 프론트엔드, Nginx, Redis)
-- `docker-compose.ml.yml` - ML 추론 서비스
 - `Makefile` - 자주 사용하는 Docker Compose 명령어 단축키
 - `docker-compose-commands.md` - 상세한 Docker Compose 명령어 가이드
 - `nginx.conf` - Nginx 리버스 프록시 설정
@@ -40,12 +39,11 @@ UHOK는 레시피 추천 플랫폼으로, 사용자가 보유한 재료를 기�
 ## 🚀 서비스 구성
 
 ### 핵심 서비스
-- **backend** (uhok-backend:1.0.0) - Python FastAPI 백엔드 서비스
-- **frontend** (uhok-frontend:2.0.0) - React 프론트엔드 애플리케이션
+- **backend** (uhok-backend:2.0.1) - Python FastAPI 백엔드 서비스
+- **frontend** (uhok-frontend:3.0.0) - React 프론트엔드 애플리케이션
 - **nginx** (nginx:1.25-alpine) - 리버스 프록시 및 로드 밸런서
 
 ### 선택적 서비스
-- **ml-inference** (uhok-ml-inference:1.0.0) - ML 추론 서비스 (프로필: `with-ml`)
 - **redis** (redis:7-alpine) - 캐시 및 세션 저장소 (프로필: `with-redis`)
 
 ## 🔧 빠른 시작
@@ -59,23 +57,16 @@ docker compose -f docker-compose.web.yml up -d
 make up
 ```
 
-### 2. ML 서비스 포함 실행
+### 2. Redis 포함 실행
 ```bash
-# ML 서비스와 함께 실행
-docker compose -f docker-compose.web.yml -f docker-compose.ml.yml up -d
-
 # Redis와 함께 실행
 docker compose -f docker-compose.web.yml --profile with-redis up -d
-
-# 모든 서비스 실행
-docker compose -f docker-compose.web.yml -f docker-compose.ml.yml --profile with-redis up -d
 ```
 
 ### 3. 접속 확인
 - **웹 애플리케이션**: http://localhost
 - **API 문서**: http://localhost/api/docs
 - **API 헬스체크**: http://localhost/api/health
-- **ML 서비스**: http://localhost:8001/health (ML 서비스 실행 시)
 
 ## 🎯 주요 기능
 
@@ -83,23 +74,18 @@ docker compose -f docker-compose.web.yml -f docker-compose.ml.yml --profile with
 - **레시피 추천 API**: 재료 기반 레시피 추천
 - **사용자 관리**: 인증 및 권한 관리
 - **데이터베이스 연동**: MariaDB, PostgreSQL 지원
-- **ML 서비스 통합**: 원격 ML 추론 서비스 연동
+- **외부 ML 서비스 연동**: 별도 EC2의 ML 추론 서비스와 통신
 
 ### 프론트엔드 서비스 (uhok-frontend)
 - **반응형 웹 UI**: 모바일/데스크톱 지원
 - **레시피 검색**: 키워드 및 재료 기반 검색
 - **사용자 인터페이스**: 직관적인 사용자 경험
 
-### ML 추론 서비스 (uhok-ml-inference)
-- **텍스트 임베딩**: 한국어 레시피 텍스트 벡터화
-- **고성능 처리**: CPU 최적화된 모델 실행
-- **RESTful API**: 표준화된 API 인터페이스
-
 ## 📋 Makefile 명령어
 
 ### 기본 명령어
 ```bash
-make up              # 전체 스택 빌드 및 실행
+make up              # 웹 서비스 빌드 및 실행
 make start           # 정지된 서비스 재시작
 make stop            # 모든 서비스 일시 중지
 make down            # 컨테이너 및 네트워크 제거
@@ -147,12 +133,6 @@ make migrate         # 데이터베이스 마이그레이션 실행
 - **포트**: 80 (내부)
 - **빌드**: React 애플리케이션
 - **정적 파일**: Nginx를 통해 서빙
-
-### ML Inference (uhok-ml-inference)
-- **포트**: 8001 (내부)
-- **헬스체크**: `/health`
-- **볼륨**: `ml_cache` (모델 캐시)
-- **프로필**: `with-ml`
 
 ### Redis
 - **포트**: 6379 (내부)
@@ -277,7 +257,7 @@ make migrate
 ## 📝 추가 정보
 
 - **Docker Compose 버전**: 2.x 이상 필요
-- **최소 메모리**: 4GB 권장 (ML 서비스 포함 시 8GB)
+- **최소 메모리**: 4GB 권장
 - **디스크 공간**: 10GB 이상 권장
 - **지원 OS**: Linux, macOS, Windows (Docker Desktop)
 
@@ -287,4 +267,3 @@ make migrate
 - [Nginx 설정](nginx.conf)
 - [백엔드 서비스](../uhok-backend/README.md)
 - [프론트엔드 서비스](../uhok-frontend/README.md)
-- [ML 추론 서비스](../uhok-ml-inference/README.md)
