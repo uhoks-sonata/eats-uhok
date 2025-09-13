@@ -125,7 +125,7 @@
 # 프로젝트 회고
 
 <details>
-  <summary><strong>이지헌</strong> — 클릭해서 펼치기</summary>
+  <summary><strong>이지헌</strong></summary>
 
 ### ✅ 잘한 점
 - **추천/분류 모델 및 다양한 추천/추출 로직 개발**  
@@ -157,7 +157,7 @@
 ---
 
 <details>
-  <summary><strong>조선영</strong> — 클릭해서 펼치기</summary>
+  <summary><strong>조선영</strong></summary>
 
 ### ✅ 잘한 점
 - **End-to-End 프로젝트 경험**  
@@ -203,7 +203,7 @@
 ---
 
 <details>
-  <summary><strong>정의철</strong> — 클릭해서 펼치기</summary>
+  <summary><strong>정의철</strong></summary>
 
 ### ✅ 잘한 점
 - **API 연결 및 통신 안정화**  
@@ -263,7 +263,7 @@
 ---
 
 <details>
-  <summary><strong>서세빈</strong> — 클릭해서 펼치기</summary>
+  <summary><strong>서세빈</strong></summary>
 
 ### ✅ 잘한 점
 - **백엔드 개발자 간의 효율적인 협업**  
