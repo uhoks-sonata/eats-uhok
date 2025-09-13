@@ -13,20 +13,24 @@
 <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white"> <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css-663399?style=for-the-badge&logo=css&logoColor=white">
 
 ### 백엔드
-<img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> <img src="https://img.shields.io/badge/fastapi-009688?style=for-the-badge&logo=fastapi&logoColor=white"> <img src="https://img.shields.io/badge/redis-DC382D?style=for-the-badge&logo=redis&logoColor=white"> <img src="https://img.shields.io/badge/sqlalchemy-D71F00?style=for-the-badge&logo=redis&logoColor=white"> 
-
-### 데이터 수집
-<img src="https://img.shields.io/badge/Apache%20Airflow-017CEE?style=flat-square&logo=Apache%20Airflow&logoColor=white"> <img src="https://img.shields.io/badge/Requests-bada55?style=flat&logo=Python&logoColor=white"/><img src="https://img.shields.io/badge/BeautifulSoup4-d97453?style=flat&logo=Python&logoColor=white"/><img src="https://img.shields.io/badge/Playwright-afbb00?style=flat&logo=Python&logoColor=white"/> 
+<img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> <img src="https://img.shields.io/badge/fastapi-009688?style=for-the-badge&logo=fastapi&logoColor=white"> <img src="https://img.shields.io/badge/redis-DC382D?style=for-the-badge&logo=redis&logoColor=white"> <img src="https://img.shields.io/badge/sqlalchemy-D71F00?style=for-the-badge&logo=redis&logoColor=white"> <img src="https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
 
 ### 데이터베이스
-<img src="https://img.shields.io/badge/mariadb-003545?style=for-the-badge&logo=mariadb&logoColor=white"> <img src="https://img.shields.io/badge/postgresql-316192?style=for-the-badge&logo=postgresql&logoColor=white"> <img src="https://img.shields.io/badge/pgvector-336791?style=for-the-badge&logo=postgresql&logoColor=white"> <img src="https://img.shields.io/badge/Pymysql-fc7773?style=flat&logo=Python&logoColor=white"/><img src="https://img.shields.io/badge/Psycopg-ef9c89?style=flat&logo=Python&logoColor=white"/>
+<img src="https://img.shields.io/badge/mariadb-003545?style=for-the-badge&logo=mariadb&logoColor=white"> <img src="https://img.shields.io/badge/postgresql-316192?style=for-the-badge&logo=postgresql&logoColor=white">
 
 ### 분석 알고리즘
-<img src="https://img.shields.io/badge/sbert-336791?style=for-the-badge&logo=sbert&logoColor=white"> <img src="https://img.shields.io/badge/SentenceTransformer-92dc8d?style=flat&logo=Python&logoColor=white"/> <img src="https://img.shields.io/badge/LinearSVM-6de885?style=flat&logo=Python&logoColor=white"/>
+<img src="https://img.shields.io/badge/pgvector-336791?style=for-the-badge&logo=postgresql&logoColor=white"> <img src="https://img.shields.io/badge/streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white">
 
 ### 배포
-<img src="https://img.shields.io/badge/nginx-009639?style=for-the-badge&logo=nginx&logoColor=white"> <img src="https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"> <img src="https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white"> 
+<img src="https://img.shields.io/badge/nginx-009639?style=for-the-badge&logo=nginx&logoColor=white">
 
+
+# 시스템 아키텍쳐
+## 현재
+![alt text](image/SystemArchitecture_Real.png)
+
+## 추후
+![alt text](image/SystemArchitecture_Ideal.png)
 
 ## 프로젝트 일정(WBS)
 [docs/제출 자료/02 WBS.xlsx](<docs/제출 자료/02 WBS.xlsx>)
