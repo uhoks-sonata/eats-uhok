@@ -25,7 +25,7 @@
 <img src="https://img.shields.io/badge/sbert-336791?style=for-the-badge&logo=sbert&logoColor=white"> <img src="https://img.shields.io/badge/SentenceTransformer-92dc8d?style=flat&logo=Python&logoColor=white"/> <img src="https://img.shields.io/badge/LinearSVM-6de885?style=flat&logo=Python&logoColor=white"/>
 
 ### 배포
-<img src="https://img.shields.io/badge/nginx-009639?style=for-the-badge&logo=nginx&logoColor=white"> <img src="https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"> <img src="https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white>
+<img src="https://img.shields.io/badge/nginx-009639?style=for-the-badge&logo=nginx&logoColor=white"> <img src="https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"> <img src="https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white"> 
 
 
 ## 프로젝트 일정(WBS)
