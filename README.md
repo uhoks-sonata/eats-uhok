@@ -27,16 +27,6 @@
 ### 배포
 <img src="https://img.shields.io/badge/nginx-009639?style=for-the-badge&logo=nginx&logoColor=white"> <img src="https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"> <img src="https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white">
 
-# 시스템 아키텍쳐
-## 현재
-![alt text](image/SystemArchitecture_Real.png)
-
-## 추후
-![alt text](image/SystemArchitecture_Ideal.png)
-
-## 프로젝트 일정(WBS)
-[docs/제출 자료/02 WBS.xlsx](<docs/제출 자료/02 WBS.xlsx>)
-
 ## 필요성 (NEED)
 - **고객 단절:** 홈쇼핑(40 ~ 60대)과 쇼핑몰(20 ~ 40대) 고객층 분리 → 충성 고객 단절  
 - **단발성·이탈:** 첫 유입 후 단발성 소비, 재방문·반복구매 트리거 부족  
@@ -64,6 +54,24 @@
 - 알림 기반 재방문·재구매 유도  
 - 개인화 추천 (찜/장바구니/시청·구매 이력 활용)  
 - 광고 최소화 + 직관적 UI/UX 제공  
+
+---
+
+## 프로젝트 일정(WBS)
+[docs/제출 자료/02 WBS.xlsx](<docs/제출 자료/02 WBS.xlsx>)
+
+## 시스템 아키텍쳐
+
+### 현재
+![alt text](image/SystemArchitecture_Real.png)
+
+### 추후
+![alt text](image/SystemArchitecture_Ideal.png)
+
+
+## 클라우드 아키텍처
+
+![alt text](image/UhokCloundArchitecture.drawio.png)
 
 ---
 
