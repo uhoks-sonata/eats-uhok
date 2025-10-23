@@ -1,14 +1,16 @@
 # 📌 서비스 개요
+
 ## 프로젝트명
-**Eat’s 유혹**
+**Eat’s 유혹(Uhok)**
 
 ## 프로젝트 기간
-7/23 - 9/13
+2025.07.23 - 09.12 (발표 09.13)
 
 ## 팀원 소개
 ![image/팀원소개.png](image/팀원소개_2.png)
 
-## 팀 스택
+## 기술 스택
+
 ### 프론트엔드
 <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white"> <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css-663399?style=for-the-badge&logo=css&logoColor=white">
 
@@ -27,7 +29,7 @@
 ### 배포
 <img src="https://img.shields.io/badge/nginx-009639?style=for-the-badge&logo=nginx&logoColor=white"> <img src="https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"> <img src="https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white">
 
-## 필요성 (NEED)
+## 필요성 (NEEDS)
 - **고객 단절:** 홈쇼핑(40 ~ 60대)과 쇼핑몰(20 ~ 40대) 고객층 분리 → 충성 고객 단절  
 - **단발성·이탈:** 첫 유입 후 단발성 소비, 재방문·반복구매 트리거 부족  
 - **시장 볼륨**  
@@ -55,8 +57,6 @@
 - 개인화 추천 (찜/장바구니/시청·구매 이력 활용)  
 - 광고 최소화 + 직관적 UI/UX 제공  
 
----
-
 ## 프로젝트 일정(WBS)
 [docs/제출 자료/02 WBS.xlsx](<docs/제출 자료/02 WBS.xlsx>)
 
@@ -69,13 +69,15 @@
 ![alt text](image/SystemArchitecture_Ideal.png)
 
 
-## 클라우드 아키텍처
-
+### 클라우드 아키텍처
 ![alt text](image/UhokCloundArchitecture.drawio.png)
 
 ---
 
 # 📌 서비스 소개
+
+## 서비스 시연 영상
+[![YouTube](https://img.shields.io/badge/YouTube-Eat'sUhok%20서비스시연%20영상-FF0000?logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=3ETDQL5bWG0)
 
 ## 서비스 개념
 - 홈쇼핑(U+TV)과 쇼핑몰(U+콕)을 연계한 식재료 상품 및 레시피 추천 웹 애플리케이션  
